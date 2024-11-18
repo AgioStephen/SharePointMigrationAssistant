@@ -1,0 +1,90 @@
+Agio SharePoint Migration Assistant
+Overview
+The Agio SharePoint Migration Assistant is a Python script designed to help identify files with long file paths that may cause issues during a SharePoint migration. It checks for:
+
+Files with paths longer than 256 characters (which SharePoint cannot handle).
+Files with paths between 128 and 256 characters, which may still pose challenges.
+The results are displayed on the screen and exported to a CSV file for review.
+
+Features
+Scans a specified directory for files with long file paths.
+Categorizes files into two groups:
+Paths longer than 256 characters.
+Paths between 128 and 256 characters.
+Exports results to a CSV file for easier review.
+Logs errors to a file if any issues occur during execution.
+Prerequisites
+Install Python 3.x if it's not already installed. Download Python
+Ensure you have the required permissions to scan the directory.
+Installation
+Download the find_long_paths.py script and place it in your desired directory.
+(Optional) Set up a virtual environment to isolate dependencies:
+bash
+Copy code
+python -m venv env
+source env/bin/activate  # On Windows, use `env\Scripts\activate`
+Usage
+Open a terminal or command prompt.
+Navigate to the folder containing the find_long_paths.py script.
+Run the script using the following command:
+bash
+Copy code
+python find_long_paths.py
+Follow the prompts:
+Enter the directory path to scan.
+Review the results displayed on the screen.
+Output
+Results will be saved to a CSV file named file_path_report.csv in the same directory as the script.
+If errors occur, they will be logged in a file named error_log.txt.
+Example
+plaintext
+Copy code
+=============================================
+           Agio SharePoint Migration Assistant
+     Checks for file paths longer than 256 characters
+  Created by Stephen Corrigan, Agio - November 2024
+=============================================
+
+Enter the directory to scan: C:\MyFiles
+Scanning for file paths...
+
+Found 2 file(s) with paths longer than 256 characters:
+C:\MyFiles\very\long\path\document1.txt
+C:\MyFiles\another\very\long\path\document2.txt
+
+These files will not be able to be moved to SharePoint due to long file paths.
+The directory structures should be changed or the file paths shortened.
+
+Found 3 file(s) with paths longer than 128 but not exceeding 256 characters:
+C:\MyFiles\long\path\document3.txt
+C:\MyFiles\longer\path\document4.txt
+C:\MyFiles\another\path\document5.txt
+
+These files may cause issues with SharePoint migration and should be reviewed.
+
+Results have been exported to 'file_path_report.csv'.
+
+Press Enter to exit.
+CSV File
+The exported CSV file, file_path_report.csv, contains the following columns:
+
+File Path: Full path of the file.
+Category: Classification based on file path length.
+Length: Total number of characters in the file path.
+Example CSV Output:
+csv
+Copy code
+File Path,Category,Length
+C:\MyFiles\very\long\path\document1.txt,Longer than 256 characters,270
+C:\MyFiles\long\path\document3.txt,Between 128 and 256 characters,200
+C:\MyFiles\another\path\document5.txt,Between 128 and 256 characters,150
+Error Handling
+If an error occurs, a file named error_log.txt will be created in the script's directory. This file will contain details about the error.
+
+Example Error Log:
+plaintext
+Copy code
+An error occurred:
+[Errno 13] Permission denied: 'C:\\RestrictedFolder'
+License
+This script is licensed for internal use at Agio and is distributed as-is without warranties of any kind.
